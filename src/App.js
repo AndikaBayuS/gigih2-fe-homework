@@ -7,7 +7,10 @@ function App() {
   const [token, setToken] = useState("");
   const [searchSong, setSearchSong] = useState("");
   const [songData, setSongData] = useState([]);
+  const [selectedSongs, setSelectedSongs] = useState([]);
+  const [combineSongs, setCombineSongs] = useState([]);
 
+  // get the token from the url
   useEffect(() => {
     const queryString = new URL(window.location.href.replace("#", "?"))
       .searchParams;
@@ -15,6 +18,16 @@ function App() {
     setToken(accessToken);
   }, []);
 
+  // basically pass songData to combineSongs and add isSelected to combineSongs
+  useEffect(() => {
+    const handleCombineTracks = songData.map((song) => ({
+      ...song,
+      isSelected: selectedSongs.find((data) => data === song.uri),
+    }));
+    setCombineSongs(handleCombineTracks);
+  }, [songData, selectedSongs]);
+
+  // a function to get song data from spotify
   const getSong = async () => {
     await axios
       .get(
@@ -28,6 +41,15 @@ function App() {
       });
   };
 
+  // a function to handle the select state of the song
+  const handleSelect = (uri) => {
+    const selected = selectedSongs.find((song) => song === uri);
+    selected
+      ? setSelectedSongs(selectedSongs.filter((song) => song !== uri))
+      : setSelectedSongs([...selectedSongs, uri]);
+  };
+
+  // here is the songs view
   return (
     <div className="p-5 bg-gray-900 h-screen space-y-5 overflow-auto">
       <div className="text-center">
@@ -62,14 +84,17 @@ function App() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {songData.map((song) => {
-          const { id, name, artists, album } = song;
+        {combineSongs.map((song) => {
+          const { uri, name, artists, album, isSelected } = song;
           return (
             <Song
-              key={id}
+              key={uri}
+              uri={uri}
               image={album.images[0]?.url}
               title={name}
               album={artists[0]?.name}
+              selectState={handleSelect}
+              isSelected={isSelected}
             />
           );
         })}
