@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Song from "./components/Song";
 import url from "./helper/spotify";
+import CreatePlaylist from "./components/CreatePlaylist";
 
 function App() {
   const [token, setToken] = useState("");
+  const [userId, setUserId] = useState("");
   const [searchSong, setSearchSong] = useState("");
   const [songData, setSongData] = useState([]);
   const [selectedSongs, setSelectedSongs] = useState([]);
@@ -15,6 +17,21 @@ function App() {
     const queryString = new URL(window.location.href.replace("#", "?"))
       .searchParams;
     const accessToken = queryString.get("access_token");
+    const getUserId = () => {
+      axios
+        .get(`https://api.spotify.com/v1/me`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => {
+          setUserId(response.data.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getUserId();
     setToken(accessToken);
   }, []);
 
@@ -65,7 +82,7 @@ function App() {
       </div>
       <div className="flex justify-center">
         <div className="mb-3 xl:w-96">
-          <div className="flex w-full mb-4">
+          <div className="flex w-full">
             <input
               type="search"
               className="flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded-l transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -82,6 +99,13 @@ function App() {
             </button>
           </div>
         </div>
+      </div>
+      <div>
+        <CreatePlaylist
+          token={token}
+          userId={userId}
+          songUris={selectedSongs}
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {combineSongs.map((song) => {
