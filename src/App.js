@@ -81,30 +81,36 @@ function App() {
           Login
         </a>
       </div>
-      <div>
-        <Search getSong={getSong} setSearchSong={setSearchSong} />
-        <CreatePlaylist
-          token={token}
-          userId={userId}
-          songUris={selectedSongs}
-        />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {combineSongs.map((song) => {
-          const { uri, name, artists, album, isSelected } = song;
-          return (
-            <Song
-              key={uri}
-              uri={uri}
-              image={album.images[0]?.url}
-              title={name}
-              album={artists[0]?.name}
-              selectState={handleSelect}
-              isSelected={isSelected}
-            />
-          );
-        })}
-      </div>
+      {/* if token is empty, hide the view*/}
+      {!token ? (
+        ""
+      ) : (
+        <div>
+          <Search getSong={getSong} setSearchSong={setSearchSong} />
+          <CreatePlaylist
+            token={token}
+            userId={userId}
+            songUris={selectedSongs}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {combineSongs.map((song) => {
+              const { uri, name, artists, album, isSelected } = song;
+              return (
+                <Song
+                  key={uri}
+                  uri={uri}
+                  image={album.images[0]?.url}
+                  title={name}
+                  album={artists[0]?.name}
+                  selectState={handleSelect}
+                  isSelected={isSelected}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
