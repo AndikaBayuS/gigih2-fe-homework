@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPlaylist, pushSongs } from "../../services/axios.service";
 
-const CreatePlaylist = ({ token, userId, songUris }) => {
+const Form = ({ token, userId, songUris }) => {
   const [playlistId, setPlaylistId] = useState("");
   const [form, setForm] = useState({
     title: "",
@@ -95,4 +95,4 @@ const CreatePlaylist = ({ token, userId, songUris }) => {
   );
 };
 
-export default CreatePlaylist;
+export default Form;
