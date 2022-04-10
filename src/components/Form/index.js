@@ -72,14 +72,14 @@ const Form = ({ songUris }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex justify-center">
-        <div className="mb-3 xl:w-96 bg-gray-800 p-5 rounded">
+        <div className="mb-3 xl:w-96 bg-neutral-800 p-5 rounded-lg">
           <div className="flex-col w-full mb-4">
             <label htmlFor="title" className="text-white text-md font-medium">
               Title
             </label>
             <input
               type="text"
-              className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
               placeholder="Title"
               name="title"
               value={form.title}
@@ -92,7 +92,7 @@ const Form = ({ songUris }) => {
             </label>
             <input
               type="text"
-              className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
               placeholder="Description"
               name="description"
               value={form.description}
@@ -103,7 +103,7 @@ const Form = ({ songUris }) => {
             <button
               id="submit"
               type="submit"
-              className="py-2 px-4 bg-blue-600 rounded text-white font-medium uppercase hover:bg-blue-700 text-xs leading-tight"
+              className="py-2 px-4 bg-green-600 rounded text-white font-medium uppercase hover:bg-green-700 text-xs leading-tight"
             >
               Create
             </button>

@@ -7,13 +7,14 @@ import {
 } from "react-router-dom";
 import CreatePlaylist from "./pages/CreatePlaylist";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const token = useSelector((state) => state.token.value);
 
   // here is the songs view
   return (
-    <div className="p-5 bg-gray-900 h-screen space-y-5 overflow-auto">
+    <div className="p-5 bg-neutral-900 h-screen space-y-5 overflow-auto">
       {/* if token is empty, redirect to login*/}
       <Router>
         <Switch>
@@ -24,7 +25,7 @@ function App() {
             <CreatePlaylist />
           </Route>
           <Route path="*">
-            <h3>404</h3>
+            <NotFound />
           </Route>
         </Switch>
       </Router>

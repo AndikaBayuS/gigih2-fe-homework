@@ -1,6 +1,6 @@
 const Song = ({ uri, image, title, album, selectState, isSelected }) => {
   return (
-    <div className="flex flex-row justify-between items-center rounded shadow-lg bg-gray-800">
+    <div className="flex flex-row justify-between items-center rounded shadow-lg bg-neutral-800">
       <div className="flex items-center">
         <img className="rounded-l w-20" src={image} alt="Album" />
         <div className="p-2">
@@ -9,7 +9,7 @@ const Song = ({ uri, image, title, album, selectState, isSelected }) => {
         </div>
       </div>
       <button
-        className="inline-block px-6 py-2.5 mr-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+        className="inline-block px-6 py-2.5 mr-3 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg"
         onClick={() => {
           selectState(uri);
         }}
