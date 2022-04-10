@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
-import { createPlaylist, pushSongs } from "../../services/axios.service";
+import { useSelector } from "react-redux";
+import {
+  retrieveUserId,
+  createPlaylist,
+  pushSongs,
+} from "../../services/axios.service";
 
-const Form = ({ token, userId, songUris }) => {
+const Form = ({ songUris }) => {
+  const token = useSelector((state) => state.token.value);
   const [playlistId, setPlaylistId] = useState("");
+  const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -13,6 +20,7 @@ const Form = ({ token, userId, songUris }) => {
     if (playlistId) {
       addSongs();
     }
+    getUserId();
   }, [playlistId]);
 
   // get the form data
@@ -21,11 +29,22 @@ const Form = ({ token, userId, songUris }) => {
     setForm({ ...form, [name]: value });
   };
 
+  // a function to get the user id
+  const getUserId = () => {
+    retrieveUserId(token)
+      .then((response) => {
+        setUserId(response.data.id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // handle form submit
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (form.title.length > 10) {
-      await createPlaylist(userId, form.title, form.description)
+      createPlaylist(userId, form.title, form.description, token)
         .then((response) => {
           setPlaylistId(response.data.id);
         })
@@ -40,8 +59,8 @@ const Form = ({ token, userId, songUris }) => {
   };
 
   // add songs to the playlist
-  const addSongs = async () => {
-    pushSongs(playlistId, songUris)
+  const addSongs = () => {
+    pushSongs(playlistId, songUris, token)
       .then((response) => {
         console.log(response);
       })
@@ -76,7 +95,7 @@ const Form = ({ token, userId, songUris }) => {
               className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Description"
               name="description"
-              value={form.des}
+              value={form.description}
               onChange={handleForm}
             />
           </div>
