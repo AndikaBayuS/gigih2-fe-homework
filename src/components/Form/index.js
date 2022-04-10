@@ -17,27 +17,38 @@ const Form = ({ songUris }) => {
 
   // run addSong function when playlistId is set
   useEffect(() => {
+    // a function to get the user id
+    const getUserId = () => {
+      retrieveUserId(token)
+        .then((response) => {
+          setUserId(response.data.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    // add songs to the playlist
+    const addSongs = () => {
+      pushSongs(playlistId, songUris, token)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
     if (playlistId) {
       addSongs();
     }
     getUserId();
-  }, [playlistId]);
+  }, [playlistId, songUris, token]);
 
   // get the form data
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-  };
-
-  // a function to get the user id
-  const getUserId = () => {
-    retrieveUserId(token)
-      .then((response) => {
-        setUserId(response.data.id);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   // handle form submit
@@ -56,17 +67,6 @@ const Form = ({ songUris }) => {
     } else {
       alert("Title must be more than 10 characters");
     }
-  };
-
-  // add songs to the playlist
-  const addSongs = () => {
-    pushSongs(playlistId, songUris, token)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
