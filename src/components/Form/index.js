@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  Center,
+  Button,
+  Box,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+} from "@chakra-ui/react";
+import {
   retrieveUserId,
   createPlaylist,
   pushSongs,
@@ -70,47 +79,47 @@ const Form = ({ songUris }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex justify-center">
-        <div className="mb-3 xl:w-96 bg-neutral-800 p-5 rounded-lg">
-          <div className="flex-col w-full mb-4">
-            <label htmlFor="title" className="text-white text-md font-medium">
-              Title
-            </label>
-            <input
-              type="text"
-              className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
-              placeholder="Title"
-              name="title"
-              value={form.title}
-              onChange={handleForm}
-            />
-          </div>
-          <div className="flex-col w-full mb-4">
-            <label htmlFor="title" className="text-white text-md font-medium">
-              Description
-            </label>
-            <input
-              type="text"
-              className="min-w-0 w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
-              placeholder="Description"
-              name="description"
-              value={form.description}
-              onChange={handleForm}
-            />
-          </div>
-          <div>
-            <button
+    <>
+      <Center>
+        <Box w="sm">
+          <form onSubmit={handleSubmit}>
+            <FormControl mb="3">
+              <FormLabel htmlFor="title">Title</FormLabel>
+              <Input
+                type="text"
+                placeholder="Title"
+                id="title"
+                name="title"
+                value={form.title}
+                onChange={handleForm}
+              />
+              <FormHelperText>Your playlist title</FormHelperText>
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="title">Description</FormLabel>
+              <Input
+                type="text"
+                placeholder="Description"
+                id="description"
+                name="description"
+                value={form.description}
+                onChange={handleForm}
+              />
+              <FormHelperText>Your playlist description</FormHelperText>
+            </FormControl>
+            <Button
+              mt="3"
+              w="100%"
               id="submit"
               type="submit"
-              className="py-2 px-4 bg-green-600 rounded text-white font-medium uppercase hover:bg-green-700 text-xs leading-tight"
+              colorScheme="green"
             >
               Create
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+            </Button>
+          </form>
+        </Box>
+      </Center>
+    </>
   );
 };
 

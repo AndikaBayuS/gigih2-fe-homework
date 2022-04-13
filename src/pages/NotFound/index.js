@@ -1,8 +1,12 @@
+import { Center, Text } from "@chakra-ui/react";
+
 const NotFound = () => {
   return (
-    <div className="flex justify-center items-center h-full text-white text-3xl">
-      <p>404 NOT FOUND</p>
-    </div>
+    <>
+      <Center h="100vh">
+        <Text fontSize="3xl">404 NOT FOUND</Text>
+      </Center>
+    </>
   );
 };
 

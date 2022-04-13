@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "framer-motion": "^6.2.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.8",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -20,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .js, src --fix" 
+    "lint": "eslint --ext .js, src --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -41,9 +45,6 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.4",
-    "eslint": "^8.13.0",
-    "postcss": "^8.4.12",
-    "tailwindcss": "^3.0.23"
+    "eslint": "^8.13.0"
   }
 }

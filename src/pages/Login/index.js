@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Center, Image, Link, Box } from "@chakra-ui/react";
 import { setToken } from "../../reducer/tokenSlice";
 import url from "../../helper/spotify";
 import logo from "../../assets/spotify-logo.png";
@@ -19,17 +20,28 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full">
-      <div className="bg-neutral-800 p-5 rounded-lg text-center">
-        <img src={logo} alt="Spotify Logo" className="h-32 w-32 mb-5" />
-        <a
-          href={url}
-          className="py-2 px-4 bg-green-600 rounded text-white font-medium uppercase hover:bg-green-700 text-xs leading-tight"
-        >
-          Login
-        </a>
-      </div>
-    </div>
+    <>
+      <Center h="100vh">
+        <Box p="10" bgColor="gray.700" borderRadius="md">
+          <Box>
+            <Image boxSize="100px" src={logo} alt="Spotify Logo" />
+          </Box>
+          <Box pt="6">
+            <Center>
+              <Link
+                href={url}
+                py="2"
+                px="4"
+                bgColor="green.400"
+                borderRadius="md"
+              >
+                Login
+              </Link>
+            </Center>
+          </Box>
+        </Box>
+      </Center>
+    </>
   );
 };
 

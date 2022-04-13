@@ -1,25 +1,38 @@
+import {
+  Box,
+  Button,
+  Center,
+  InputGroup,
+  Input,
+  InputRightElement,
+} from "@chakra-ui/react";
+
 const Search = ({ setSearchSong, getSong }) => {
   return (
-    <div className="flex justify-center">
-      <div className="mb-3 xl:w-96">
-        <div className="flex w-full">
-          <input
-            type="search"
-            className="flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal bg-white border border-solid border-gray-300 rounded-l transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
-            placeholder="Search"
-            aria-label="Search"
-            onChange={(e) => setSearchSong(e.target.value)}
-          />
-          <button
-            className="px-6 py-2 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded-r focus:outline-none focus:ring-0 transition duration-150 ease-in-out hover:bg-green-700"
-            type="button"
-            onClick={getSong}
-          >
-            Search
-          </button>
-        </div>
-      </div>
-    </div>
+    <>
+      <Center>
+        <Box w="sm">
+          <InputGroup mb="3">
+            <Input
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              onChange={(e) => setSearchSong(e.target.value)}
+            />
+            <InputRightElement width="4.5rem" pr="2">
+              <Button
+                size="sm"
+                type="button"
+                onClick={getSong}
+                colorScheme="green"
+              >
+                Search
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </Box>
+      </Center>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Center, Text, SimpleGrid, Box } from "@chakra-ui/react";
 import Song from "../../components/Song";
 import Search from "../../components/Search";
 import { retrieveSongs } from "../../services/axios.service";
@@ -42,32 +43,35 @@ const CreatePlaylist = () => {
   };
 
   return (
-    <div>
-      <div className="text-center">
-        <h2 className="text-white text-3xl mb-5 font-semibold">
+    <>
+      <Center>
+        <Text fontSize="2xl" fontWeight="semibold">
           Create Playlist
-        </h2>
-      </div>
+        </Text>
+      </Center>
+
       <Search getSong={getSong} setSearchSong={setSearchSong} />
       <Form songUris={selectedSongs} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <SimpleGrid columns={{ sm: 1, md: 2 }} spacing="5" py="5">
         {combineSongs.map((song) => {
           const { uri, name, artists, album, isSelected } = song;
           return (
-            <Song
-              key={uri}
-              uri={uri}
-              image={album.images[0]?.url}
-              title={name}
-              album={artists[0]?.name}
-              selectState={handleSelect}
-              isSelected={isSelected}
-            />
+            <Box w="100%">
+              <Song
+                key={uri}
+                uri={uri}
+                image={album.images[0]?.url}
+                title={name}
+                album={artists[0]?.name}
+                selectState={handleSelect}
+                isSelected={isSelected}
+              />
+            </Box>
           );
         })}
-      </div>
-    </div>
+      </SimpleGrid>
+    </>
   );
 };
 
