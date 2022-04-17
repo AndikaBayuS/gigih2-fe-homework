@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 function App() {
-  const token = useSelector((state) => state.token.value);
+  const token = useSelector((state: any) => state.token.value);
 
   // here is the songs view
   return (
@@ -24,7 +24,7 @@ function App() {
               {!token ? <Login /> : <Redirect to="/create-playlist" />}
             </Route>
             <Route path="/create-playlist">
-              <CreatePlaylist />
+              {!token ? <Redirect exact to="/" /> : <CreatePlaylist />}
             </Route>
             <Route path="*">
               <NotFound />

@@ -13,10 +13,11 @@ import {
   retrieveUserId,
   createPlaylist,
   pushSongs,
-} from "../../services/axios.service";
+} from "services/axios.service";
+import { songUrisInterface } from "global/interfaces";
 
-const Form = ({ songUris }) => {
-  const token = useSelector((state) => state.token.value);
+const Form = ({ songUris }: songUrisInterface) => {
+  const token = useSelector((state: any) => state.token.value);
   const [playlistId, setPlaylistId] = useState("");
   const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
@@ -55,13 +56,13 @@ const Form = ({ songUris }) => {
   }, [playlistId, songUris, token]);
 
   // get the form data
-  const handleForm = (e) => {
+  const handleForm = (e: any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
   // handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (form.title.length > 10) {
       createPlaylist(userId, form.title, form.description, token)

@@ -1,6 +1,14 @@
 import { Box, Button, Spacer, Flex, Image, Text } from "@chakra-ui/react";
+import { songInterface } from "global/interfaces";
 
-const Song = ({ uri, image, title, album, selectState, isSelected }) => {
+const Song = ({
+  uri,
+  image,
+  title,
+  album,
+  selectState,
+  isSelected,
+}: songInterface) => {
   return (
     <>
       <Box bgColor="gray.700" borderRadius="md">
@@ -29,7 +37,7 @@ const Song = ({ uri, image, title, album, selectState, isSelected }) => {
                 selectState(uri);
               }}
             >
-              {isSelected ? "Deselect" : "Select"}
+              {isSelected ? "Select" : "Deselect"}
             </Button>
           </Box>
         </Flex>
