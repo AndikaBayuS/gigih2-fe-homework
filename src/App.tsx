@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
@@ -9,9 +8,10 @@ import { Box } from "@chakra-ui/react";
 import CreatePlaylist from "./pages/CreatePlaylist";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import { useAppSelector } from "hooks/hooks";
 
 function App() {
-  const token = useSelector((state: any) => state.token.value);
+  const token = useAppSelector((state) => state.token.value);
 
   // here is the songs view
   return (

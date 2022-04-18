@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Center, Text, SimpleGrid } from "@chakra-ui/react";
 import Song from "components/Song";
 import Search from "components/Search";
 import { retrieveSongs } from "services/axios.service";
 import Form from "components/Form";
 import { songDataInterface, selectedInterface } from "global/interfaces";
+import { useAppSelector } from "hooks/hooks";
 
 const CreatePlaylist = () => {
-  const token = useSelector((state: any) => state.token.value);
+  const token = useAppSelector((state) => state.token.value);
   const [searchSong, setSearchSong] = useState("");
   const [songData, setSongData] = useState<songDataInterface[]>([]);
   const [selectedSongs, setSelectedSongs] = useState<
@@ -20,7 +20,9 @@ const CreatePlaylist = () => {
   useEffect(() => {
     const handleCombineSongs = songData.map((song: songDataInterface) => ({
       ...song,
-      isSelected: !selectedSongs.find((data) => data === song.uri),
+      isSelected: selectedSongs.find((data) => data === song.uri)
+        ? true
+        : false,
     }));
     setCombineSongs(handleCombineSongs);
   }, [songData, selectedSongs]);

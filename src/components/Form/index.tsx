@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   Center,
   Button,
@@ -15,9 +14,10 @@ import {
   pushSongs,
 } from "services/axios.service";
 import { songUrisInterface } from "global/interfaces";
+import { useAppSelector } from "hooks/hooks";
 
 const Form = ({ songUris }: songUrisInterface) => {
-  const token = useSelector((state: any) => state.token.value);
+  const token = useAppSelector((state) => state.token.value);
   const [playlistId, setPlaylistId] = useState("");
   const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
@@ -56,13 +56,13 @@ const Form = ({ songUris }: songUrisInterface) => {
   }, [playlistId, songUris, token]);
 
   // get the form data
-  const handleForm = (e: any) => {
+  const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
   // handle form submit
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (form.title.length > 10) {
       createPlaylist(userId, form.title, form.description, token)

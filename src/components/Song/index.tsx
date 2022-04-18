@@ -37,7 +37,7 @@ const Song = ({
                 selectState(uri);
               }}
             >
-              {isSelected ? "Select" : "Deselect"}
+              {isSelected ? "Deselect" : "Select"}
             </Button>
           </Box>
         </Flex>

@@ -29,3 +29,7 @@ export interface songInterface {
   selectState: (uri: string) => void;
   isSelected: boolean;
 }
+
+export interface tokenState {
+  value: string;
+}
