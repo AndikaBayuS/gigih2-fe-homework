@@ -33,3 +33,8 @@ export interface songInterface {
 export interface tokenState {
   value: string;
 }
+
+export interface dialogInterface {
+  total: number;
+  showConfirmation: boolean;
+}

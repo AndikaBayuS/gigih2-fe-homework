@@ -7,6 +7,7 @@ import {
   FormLabel,
   FormHelperText,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import {
   retrieveUserId,
@@ -15,15 +16,18 @@ import {
 } from "services/axios.service";
 import { songUrisInterface } from "global/interfaces";
 import { useAppSelector } from "hooks/hooks";
+import Dialog from "components/Dialog";
 
 const Form = ({ songUris }: songUrisInterface) => {
   const token = useAppSelector((state) => state.token.value);
   const [playlistId, setPlaylistId] = useState("");
   const [userId, setUserId] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
   });
+  const toast = useToast();
 
   // run addSong function when playlistId is set
   useEffect(() => {
@@ -72,10 +76,16 @@ const Form = ({ songUris }: songUrisInterface) => {
         .catch((error) => {
           console.log(error);
         });
+      setDialogOpen(true);
       setForm({ title: "", description: "" });
-      alert("Successfully created playlist");
     } else {
-      alert("Title must be more than 10 characters");
+      toast({
+        title: "Error",
+        description: "Title should have more than 10 words!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -120,6 +130,7 @@ const Form = ({ songUris }: songUrisInterface) => {
           </form>
         </Box>
       </Center>
+      <Dialog total={songUris.length} showConfirmation={dialogOpen} />
     </>
   );
 };
