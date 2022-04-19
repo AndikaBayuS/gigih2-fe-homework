@@ -57,7 +57,7 @@ const CreatePlaylist = () => {
       <Search getSong={getSong} setSearchSong={setSearchSong} />
       <Form songUris={selectedSongs} />
 
-      <SimpleGrid columns={{ sm: 1, md: 2 }} spacing="5" py="5">
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" py="5">
         {combineSongs.map((song) => {
           const { uri, name, artists, album, isSelected } = song;
           return (

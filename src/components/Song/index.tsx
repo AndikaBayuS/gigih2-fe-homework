@@ -20,12 +20,19 @@ const Song = ({
                 alt="Album"
                 boxSize="100px"
                 borderRadius="md"
+                data-testid="song-image"
               />
               <Box pl="3">
-                <Text fontSize="xl" fontWeight="semibold">
+                <Text
+                  fontSize="xl"
+                  fontWeight="semibold"
+                  data-testid="song-title"
+                >
                   {title}
                 </Text>
-                <Text color="gray.400">{album}</Text>
+                <Text color="gray.400" data-testid="song-album">
+                  {album}
+                </Text>
               </Box>
             </Flex>
           </Box>
@@ -36,6 +43,7 @@ const Song = ({
               onClick={() => {
                 selectState(uri);
               }}
+              data-testid="song-button"
             >
               {isSelected ? "Deselect" : "Select"}
             </Button>
