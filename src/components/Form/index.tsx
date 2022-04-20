@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState, useRef } from "react";
 import {
   Center,
   Button,
@@ -8,6 +8,16 @@ import {
   FormHelperText,
   Input,
   useToast,
+  useDisclosure,
+} from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogCloseButton,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from "@chakra-ui/react";
 import {
   retrieveUserId,
@@ -16,18 +26,18 @@ import {
 } from "services/axios.service";
 import { songUrisInterface } from "global/interfaces";
 import { useAppSelector } from "hooks/hooks";
-import Dialog from "components/Dialog";
 
 const Form = ({ songUris }: songUrisInterface) => {
   const token = useAppSelector((state) => state.token.value);
   const [playlistId, setPlaylistId] = useState("");
   const [userId, setUserId] = useState("");
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
   });
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLButtonElement>(null);
 
   // run addSong function when playlistId is set
   useEffect(() => {
@@ -73,12 +83,15 @@ const Form = ({ songUris }: songUrisInterface) => {
         .then((response) => {
           setPlaylistId(response.data.id);
         })
+        .then(() => {
+          onOpen();
+        })
         .catch((error) => {
           console.log(error);
         });
-      setDialogOpen(true);
       setForm({ title: "", description: "" });
     } else {
+      // if the title is less than 10 characters
       toast({
         title: "Error",
         description: "Title should have more than 10 words!",
@@ -130,7 +143,31 @@ const Form = ({ songUris }: songUrisInterface) => {
           </form>
         </Box>
       </Center>
-      <Dialog total={songUris.length} showConfirmation={dialogOpen} />
+
+      {/* alert dialog */}
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onClose}
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        isCentered
+      >
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            Yay, You Successfully Created A Playlist!!
+          </AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            You've added {songUris.length} songs to your playlist!
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button onClick={onClose} colorScheme="green">
+              Understand
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
