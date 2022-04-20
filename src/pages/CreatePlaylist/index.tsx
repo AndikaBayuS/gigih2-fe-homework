@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Center, Text, SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Box } from "@chakra-ui/react";
 import Song from "components/Song";
 import Search from "components/Search";
 import { retrieveSongs } from "services/axios.service";
@@ -48,31 +48,27 @@ const CreatePlaylist = () => {
 
   return (
     <>
-      <Center>
-        <Text fontSize="2xl" fontWeight="semibold">
-          Create Playlist
-        </Text>
-      </Center>
+      <Box p={5}>
+        <Search getSong={getSong} setSearchSong={setSearchSong} />
+        <Form songUris={selectedSongs} />
 
-      <Search getSong={getSong} setSearchSong={setSearchSong} />
-      <Form songUris={selectedSongs} />
-
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" py="5">
-        {combineSongs.map((song) => {
-          const { uri, name, artists, album, isSelected } = song;
-          return (
-            <Song
-              key={uri}
-              uri={uri}
-              image={album.images[0]?.url}
-              title={name}
-              album={artists[0]?.name}
-              selectState={handleSelect}
-              isSelected={isSelected}
-            />
-          );
-        })}
-      </SimpleGrid>
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" py="5">
+          {combineSongs.map((song) => {
+            const { uri, name, artists, album, isSelected } = song;
+            return (
+              <Song
+                key={uri}
+                uri={uri}
+                image={album.images[0]?.url}
+                title={name}
+                album={artists[0]?.name}
+                selectState={handleSelect}
+                isSelected={isSelected}
+              />
+            );
+          })}
+        </SimpleGrid>
+      </Box>
     </>
   );
 };

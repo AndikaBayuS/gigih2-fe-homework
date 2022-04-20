@@ -12,7 +12,7 @@ const Search = ({ setSearchSong, getSong }: searchInterface) => {
   return (
     <>
       <Center>
-        <Box w="sm">
+        <Box w="md">
           <InputGroup mb="3">
             <Input
               type="text"
