@@ -23,7 +23,7 @@ import { createPlaylist, pushSongs } from "services/axios.service";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { clearSelectedSong } from "reducer/selectedSongSlice";
 
-const Form = () => {
+const Form = ({ close }: { close: () => void }) => {
   const token = useAppSelector((state) => state.token.value);
   const songUris = useAppSelector((state) => state.selectedSong.uri);
   const userData = useAppSelector((state) => state.user.data);
@@ -93,7 +93,7 @@ const Form = () => {
   return (
     <>
       <Center>
-        <Box w="sm">
+        <Box w="full">
           <form onSubmit={handleSubmit}>
             <FormControl mb="3">
               <FormLabel htmlFor="title">Title</FormLabel>
@@ -150,7 +150,13 @@ const Form = () => {
             You've added {totalSong} songs to your playlist!
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button onClick={onClose} colorScheme="green">
+            <Button
+              onClick={() => {
+                onClose();
+                close();
+              }}
+              colorScheme="green"
+            >
               Understand
             </Button>
           </AlertDialogFooter>
