@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Center, Image, Link, Box } from "@chakra-ui/react";
+import { Center, Image, Link, Box, useColorModeValue } from "@chakra-ui/react";
 import { setToken } from "reducer/tokenSlice";
 import url from "helper/spotify";
 import logo from "assets/spotify-logo.png";
@@ -27,7 +27,11 @@ const Login = () => {
   return (
     <>
       <Center h="100vh">
-        <Box p="10" bgColor="gray.700" borderRadius="md">
+        <Box
+          p="10"
+          bgColor={useColorModeValue("gray.100", "gray.700")}
+          borderRadius="md"
+        >
           <Box>
             <Image boxSize="100px" src={logo} alt="Spotify Logo" />
           </Box>
@@ -39,6 +43,7 @@ const Login = () => {
                 px="4"
                 bgColor="green.400"
                 borderRadius="md"
+                style={{ textDecoration: "none" }}
               >
                 Login
               </Link>
