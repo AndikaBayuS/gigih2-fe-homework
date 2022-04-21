@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { SimpleGrid, Box } from "@chakra-ui/react";
 import Song from "components/Song";
 import Search from "components/Search";
-import { retrieveSongs, retrieveUserId } from "services/axios.service";
+import { retrieveSongs, retrieveTopSongs } from "services/axios.service";
 import Form from "components/Form";
 import { songDataInterface } from "global/interfaces";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { setSelectedSong } from "reducer/selectedSongSlice";
-import { setUserData } from "reducer/userSlice";
 
 const CreatePlaylist = () => {
   const token = useAppSelector((state) => state.token.value);
@@ -18,6 +17,15 @@ const CreatePlaylist = () => {
   const [songData, setSongData] = useState<songDataInterface[]>([]);
   const [combineSongs, setCombineSongs] = useState<songDataInterface[]>([]);
 
+  useEffect(() => {
+    if (!searchSong) {
+      retrieveTopSongs(token).then((response) => {
+        setSongData(response.data.items);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // basically pass songData to combineSongs and add isSelected to combineSongs
   useEffect(() => {
     const handleCombineSongs = songData.map((song: songDataInterface) => ({
@@ -27,14 +35,6 @@ const CreatePlaylist = () => {
         : false,
     }));
     setCombineSongs(handleCombineSongs);
-
-    retrieveUserId(token)
-      .then((response) => {
-        dispatch(setUserData(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, [songData, selectedSongs]);
 
   // a function to get song data from spotify

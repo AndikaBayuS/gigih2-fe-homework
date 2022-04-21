@@ -4,11 +4,16 @@ import { setToken } from "reducer/tokenSlice";
 import url from "helper/spotify";
 import logo from "assets/spotify-logo.png";
 import { useAppDispatch } from "hooks/hooks";
+import { setUserData } from "reducer/userSlice";
+import { retrieveUserId } from "services/axios.service";
 const Login = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setToken(getToken() || ""));
+    retrieveUserId(getToken() || "").then((response) => {
+      dispatch(setUserData(response.data));
+    });
   }, [dispatch]);
 
   const getToken = () => {

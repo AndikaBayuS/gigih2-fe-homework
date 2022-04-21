@@ -20,6 +20,14 @@ const retrieveSongs = (searchSong: string, token: string) => {
   });
 };
 
+const retrieveTopSongs = (token: string) => {
+  return instance.get(`me/top/tracks`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const retrieveUserId = (token: string) => {
   return instance.get(`/me`, {
     headers: {
@@ -64,4 +72,10 @@ const pushSongs = (playlistId: string, songUris: string[], token: string) => {
   );
 };
 
-export { retrieveSongs, retrieveUserId, createPlaylist, pushSongs };
+export {
+  retrieveSongs,
+  retrieveTopSongs,
+  retrieveUserId,
+  createPlaylist,
+  pushSongs,
+};
