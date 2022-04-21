@@ -26,7 +26,7 @@ import { clearSelectedSong } from "reducer/selectedSongSlice";
 const Form = () => {
   const token = useAppSelector((state) => state.token.value);
   const songUris = useAppSelector((state) => state.selectedSong.uri);
-  const userId = useAppSelector((state) => state.user.data);
+  const userData = useAppSelector((state) => state.user.data);
   const dispatch = useAppDispatch();
 
   const [playlistId, setPlaylistId] = useState("");
@@ -66,7 +66,7 @@ const Form = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (form.title.length > 10) {
-      createPlaylist(userId.id, form.title, form.description, token)
+      createPlaylist(userData.id, form.title, form.description, token)
         .then((response) => {
           setPlaylistId(response.data.id);
           setTotalsong(songUris.length);
