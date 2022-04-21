@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 import Song from "components/Song";
 
 const renderSong = (
@@ -15,29 +14,28 @@ const renderSong = (
   />
 );
 
-// Maybe i'm overdoing this ~~
 describe("Song", () => {
   test("Song Image Rendered", () => {
     render(renderSong);
-    const songImage = screen.findByTestId("song-image");
-    expect(songImage).toBeInTheDocument;
+    const songImage = screen.getByTestId("song-image");
+    expect(songImage).toBeInTheDocument();
   });
 
-  test("Song Title Rendered", async () => {
+  test("Song Title Rendered", () => {
     render(renderSong);
-    const songTitle = screen.findByTestId("song-title");
-    expect((await songTitle).textContent).toBe("Beatles");
+    const songTitle = screen.getByTestId("song-title");
+    expect(songTitle).toHaveTextContent("Beatles");
   });
 
-  test("Song Album Rendered", async () => {
+  test("Song Album Rendered", () => {
     render(renderSong);
-    const songAlbum = screen.findByTestId("song-album");
-    expect((await songAlbum).textContent).toBe("Jude");
+    const songAlbum = screen.getByTestId("song-album");
+    expect(songAlbum).toHaveTextContent("Jude");
   });
 
-  test("Song Button Rendered", async () => {
+  test("Song Button Rendered", () => {
     render(renderSong);
-    const songButton = screen.findByTestId("song-button");
-    expect((await songButton).textContent).toBe("Select");
+    const songButton = screen.getByTestId("song-button");
+    expect(songButton).toHaveTextContent("Select");
   });
 });
