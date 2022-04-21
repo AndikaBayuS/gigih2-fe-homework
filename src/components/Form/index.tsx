@@ -38,6 +38,8 @@ const Form = () => {
     title: "",
     description: "",
   });
+  const [totalSong, setTotalsong] = useState(0);
+
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
@@ -56,18 +58,20 @@ const Form = () => {
     };
 
     // add songs to the playlist
-    const addSongs = async () => {
-      await pushSongs(playlistId, songUris, token).catch((error) => {
-        console.log(error);
-      });
-    };
-
     if (playlistId) {
-      addSongs();
+      pushSongs(playlistId, songUris, token)
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setPlaylistId("");
+          dispatch(clearSelectedSong());
+        });
     }
+
     getUserId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [songUris]);
+  }, [playlistId, onClose]);
 
   // get the form data
   const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,10 +86,13 @@ const Form = () => {
       createPlaylist(userId, form.title, form.description, token)
         .then((response) => {
           setPlaylistId(response.data.id);
-          onOpen();
+          setTotalsong(songUris.length);
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          onOpen();
         });
       setForm({ title: "", description: "" });
     } else {
@@ -99,7 +106,7 @@ const Form = () => {
       });
     }
   };
-  console.log(songUris);
+
   return (
     <>
       <Center>
@@ -157,7 +164,7 @@ const Form = () => {
           </AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            You've added {songUris.length} songs to your playlist!
+            You've added {totalSong} songs to your playlist!
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button onClick={onClose} colorScheme="green">
