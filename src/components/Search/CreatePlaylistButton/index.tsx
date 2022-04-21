@@ -18,7 +18,8 @@ const CreatePlaylistButton = () => {
   return (
     <>
       <Button
-        ml={3}
+        ml={{ base: "0", md: "3" }}
+        w={{ base: "100%", md: "auto" }}
         colorScheme="green"
         size="sm"
         isDisabled={songUris.length < 1 ? true : false}
