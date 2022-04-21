@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { SimpleGrid, Box } from "@chakra-ui/react";
 import Song from "components/Song";
 import Search from "components/Search";
-import { retrieveSongs } from "services/axios.service";
+import { retrieveSongs, retrieveUserId } from "services/axios.service";
 import Form from "components/Form";
 import { songDataInterface } from "global/interfaces";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { setSelectedSong } from "reducer/selectedSongSlice";
+import { setUserData } from "reducer/userSlice";
 
 const CreatePlaylist = () => {
   const token = useAppSelector((state) => state.token.value);
@@ -26,6 +27,14 @@ const CreatePlaylist = () => {
         : false,
     }));
     setCombineSongs(handleCombineSongs);
+
+    retrieveUserId(token)
+      .then((response) => {
+        dispatch(setUserData(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [songData, selectedSongs]);
 
   // a function to get song data from spotify
@@ -51,8 +60,6 @@ const CreatePlaylist = () => {
     <>
       <Box p={5}>
         <Search getSong={getSong} setSearchSong={setSearchSong} />
-        <Form />
-
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" py="5">
           {combineSongs.map((song) => {
             const { uri, name, artists, album, isSelected } = song;

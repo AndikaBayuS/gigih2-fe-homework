@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -14,8 +13,10 @@ import {
   DrawerOverlay,
   DrawerContent,
 } from "@chakra-ui/react";
+import { useAppSelector } from "hooks/hooks";
 
 const Navbar = () => {
+  const userData = useAppSelector((state) => state.user.data);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -35,11 +36,13 @@ const Navbar = () => {
           <Spacer ml="auto" />
           <Box bgColor="whiteAlpha.300" borderRadius="full">
             <Flex alignItems="center" pl={3}>
-              <Text mr={2}>Dan Abrahmov</Text>
+              <Text mr={2} fontWeight="semibold">
+                {userData.display_name}
+              </Text>
               <Avatar
                 size="md"
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
+                name={userData.display_name}
+                src={userData.images[0]?.url}
               />
             </Flex>
           </Box>

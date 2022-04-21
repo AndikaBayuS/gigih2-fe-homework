@@ -19,21 +19,17 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
 } from "@chakra-ui/react";
-import {
-  retrieveUserId,
-  createPlaylist,
-  pushSongs,
-} from "services/axios.service";
+import { createPlaylist, pushSongs } from "services/axios.service";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { clearSelectedSong } from "reducer/selectedSongSlice";
 
 const Form = () => {
   const token = useAppSelector((state) => state.token.value);
   const songUris = useAppSelector((state) => state.selectedSong.uri);
+  const userId = useAppSelector((state) => state.user.data);
   const dispatch = useAppDispatch();
 
   const [playlistId, setPlaylistId] = useState("");
-  const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -46,17 +42,6 @@ const Form = () => {
 
   // run addSong function when playlistId is set
   useEffect(() => {
-    // a function to get the user id
-    const getUserId = () => {
-      retrieveUserId(token)
-        .then((response) => {
-          setUserId(response.data.id);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-
     // add songs to the playlist
     if (playlistId) {
       pushSongs(playlistId, songUris, token)
@@ -68,8 +53,6 @@ const Form = () => {
           dispatch(clearSelectedSong());
         });
     }
-
-    getUserId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlistId, onClose]);
 
@@ -83,7 +66,7 @@ const Form = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (form.title.length > 10) {
-      createPlaylist(userId, form.title, form.description, token)
+      createPlaylist(userId.id, form.title, form.description, token)
         .then((response) => {
           setPlaylistId(response.data.id);
           setTotalsong(songUris.length);
