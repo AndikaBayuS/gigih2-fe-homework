@@ -12,7 +12,7 @@ import { useAppSelector } from "hooks/hooks";
 import Navbar from "components/Navbar/index.";
 import Playlist from "pages/Playlist";
 
-function App() {
+const App = () => {
   const token = useAppSelector((state) => state.token.value);
 
   // here is the songs view
@@ -21,16 +21,16 @@ function App() {
       <Box>
         {/* if token is empty, redirect to login*/}
         <Router>
+          {token ? <Navbar /> : ""}
           <Switch>
             <Route exact path="/">
               {!token ? <Login /> : <Redirect to="/create-playlist" />}
             </Route>
             <Route path="/create-playlist">
-              <Navbar />
               {!token ? <Redirect exact to="/" /> : <CreatePlaylist />}
             </Route>
             <Route path="/user-playlist">
-              <Playlist />
+              {!token ? <Redirect exact to="/" /> : <Playlist />}
             </Route>
             <Route path="*">
               <NotFound />
@@ -40,6 +40,6 @@ function App() {
       </Box>
     </>
   );
-}
+};
 
 export default App;
