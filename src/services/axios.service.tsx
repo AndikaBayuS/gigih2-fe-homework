@@ -1,5 +1,4 @@
 import axios from "axios";
-import { selectedInterface } from "global/interfaces";
 
 const instance = axios.create({
   baseURL: "https://api.spotify.com/v1",
@@ -51,11 +50,7 @@ const createPlaylist = (
   );
 };
 
-const pushSongs = (
-  playlistId: string,
-  songUris: selectedInterface["uri"][],
-  token: string
-) => {
+const pushSongs = (playlistId: string, songUris: string[], token: string) => {
   return instance.post(
     `/playlists/${playlistId}/tracks`,
     {

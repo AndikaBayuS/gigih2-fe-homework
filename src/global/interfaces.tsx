@@ -8,14 +8,6 @@ export interface songDataInterface {
   isSelected: boolean;
 }
 
-export interface selectedInterface {
-  uri: string;
-}
-
-export interface songUrisInterface {
-  songUris: selectedInterface["uri"][];
-}
-
 export interface searchInterface {
   setSearchSong: (value: string) => void;
   getSong: () => void;

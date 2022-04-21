@@ -4,16 +4,17 @@ import Song from "components/Song";
 import Search from "components/Search";
 import { retrieveSongs } from "services/axios.service";
 import Form from "components/Form";
-import { songDataInterface, selectedInterface } from "global/interfaces";
-import { useAppSelector } from "hooks/hooks";
+import { songDataInterface } from "global/interfaces";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { setSelectedSong } from "reducer/selectedSongSlice";
 
 const CreatePlaylist = () => {
   const token = useAppSelector((state) => state.token.value);
+  const selectedSongs = useAppSelector((state) => state.selectedSong.uri);
+  const dispatch = useAppDispatch();
+
   const [searchSong, setSearchSong] = useState("");
   const [songData, setSongData] = useState<songDataInterface[]>([]);
-  const [selectedSongs, setSelectedSongs] = useState<
-    selectedInterface["uri"][]
-  >([]);
   const [combineSongs, setCombineSongs] = useState<songDataInterface[]>([]);
 
   // basically pass songData to combineSongs and add isSelected to combineSongs
@@ -42,15 +43,15 @@ const CreatePlaylist = () => {
   const handleSelect = (uri: string) => {
     const selected = selectedSongs.find((song) => song === uri);
     selected
-      ? setSelectedSongs(selectedSongs.filter((song) => song !== uri))
-      : setSelectedSongs([...selectedSongs, uri]);
+      ? dispatch(setSelectedSong(selectedSongs.filter((song) => song !== uri)))
+      : dispatch(setSelectedSong([...selectedSongs, uri]));
   };
 
   return (
     <>
       <Box p={5}>
         <Search getSong={getSong} setSearchSong={setSearchSong} />
-        <Form songUris={selectedSongs} />
+        <Form />
 
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" py="5">
           {combineSongs.map((song) => {

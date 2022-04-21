@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tokenReducer from "./reducer/tokenSlice";
+import selectedSongReducer from "./reducer/selectedSongSlice";
 
 export const store = configureStore({
   reducer: {
     token: tokenReducer,
+    selectedSong: selectedSongReducer,
   },
 });
 

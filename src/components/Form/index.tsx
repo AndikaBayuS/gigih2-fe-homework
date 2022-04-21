@@ -24,11 +24,14 @@ import {
   createPlaylist,
   pushSongs,
 } from "services/axios.service";
-import { songUrisInterface } from "global/interfaces";
-import { useAppSelector } from "hooks/hooks";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { clearSelectedSong } from "reducer/selectedSongSlice";
 
-const Form = ({ songUris }: songUrisInterface) => {
+const Form = () => {
   const token = useAppSelector((state) => state.token.value);
+  const songUris = useAppSelector((state) => state.selectedSong.uri);
+  const dispatch = useAppDispatch();
+
   const [playlistId, setPlaylistId] = useState("");
   const [userId, setUserId] = useState("");
   const [form, setForm] = useState({
@@ -53,21 +56,18 @@ const Form = ({ songUris }: songUrisInterface) => {
     };
 
     // add songs to the playlist
-    const addSongs = () => {
-      pushSongs(playlistId, songUris, token)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const addSongs = async () => {
+      await pushSongs(playlistId, songUris, token).catch((error) => {
+        console.log(error);
+      });
     };
 
     if (playlistId) {
       addSongs();
     }
     getUserId();
-  }, [playlistId, songUris, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [songUris]);
 
   // get the form data
   const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +82,6 @@ const Form = ({ songUris }: songUrisInterface) => {
       createPlaylist(userId, form.title, form.description, token)
         .then((response) => {
           setPlaylistId(response.data.id);
-        })
-        .then(() => {
           onOpen();
         })
         .catch((error) => {
@@ -101,7 +99,7 @@ const Form = ({ songUris }: songUrisInterface) => {
       });
     }
   };
-
+  console.log(songUris);
   return (
     <>
       <Center>
