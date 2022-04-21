@@ -78,7 +78,11 @@ const Navbar = () => {
                 Create Playlist
               </Box>
             </Link>
-            <Link as={RouteLink} to="/" style={{ textDecoration: "none" }}>
+            <Link
+              as={RouteLink}
+              to="/user-playlist"
+              style={{ textDecoration: "none" }}
+            >
               <Box
                 py={3}
                 px={5}

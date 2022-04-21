@@ -36,6 +36,14 @@ const retrieveUserId = (token: string) => {
   });
 };
 
+const retrieveUserPlaylist = (userId: string, token: string) => {
+  return instance.get(`/users/${userId}/playlists`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const createPlaylist = (
   userId: string,
   title: string,
@@ -76,6 +84,7 @@ export {
   retrieveSongs,
   retrieveTopSongs,
   retrieveUserId,
+  retrieveUserPlaylist,
   createPlaylist,
   pushSongs,
 };

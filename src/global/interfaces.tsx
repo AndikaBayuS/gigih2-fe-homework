@@ -30,3 +30,18 @@ export interface dialogInterface {
   total: number;
   showConfirmation: boolean;
 }
+
+export interface playlistCardInterface {
+  title: string;
+  albumImage: string;
+  owner: string;
+  totalSong: number;
+}
+
+export interface playlistInterface {
+  id: string;
+  name: string;
+  images: [{ url: string }];
+  owner: { display_name: string };
+  tracks: { total: number };
+}
