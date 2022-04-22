@@ -13,6 +13,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
+  DrawerCloseButton,
   Link,
   useColorModeValue,
   useColorMode,
@@ -35,6 +36,7 @@ const Navbar = () => {
             onClick={() => {
               onOpen();
             }}
+            data-testid="nav-button"
           />
           <Text fontSize="xl" fontWeight="bold" ml={4}>
             Creativy
@@ -64,6 +66,7 @@ const Navbar = () => {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
+          <DrawerCloseButton data-testid="close-button" />
           <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
           <DrawerBody>
             <Link as={RouteLink} to="/" style={{ textDecoration: "none" }}>
