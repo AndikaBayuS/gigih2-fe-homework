@@ -9,7 +9,7 @@ import CreatePlaylist from "./pages/CreatePlaylist";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { useAppSelector } from "hooks/hooks";
-import Navbar from "components/Navbar/index.";
+import Navbar from "components/Navbar/index";
 import Playlist from "pages/Playlist";
 
 const App = () => {
