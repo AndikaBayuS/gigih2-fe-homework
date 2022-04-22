@@ -1,4 +1,9 @@
-import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import {
+  ChevronDownIcon,
+  HamburgerIcon,
+  MoonIcon,
+  SunIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -17,12 +22,18 @@ import {
   Link,
   useColorModeValue,
   useColorMode,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
-import { useAppSelector } from "hooks/hooks";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { Link as RouteLink } from "react-router-dom";
+import { removeToken } from "reducer/tokenSlice";
 
 const Navbar = () => {
   const userData = useAppSelector((state) => state.user.data);
+  const dispatch = useAppDispatch();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -58,6 +69,26 @@ const Navbar = () => {
                 name={userData.display_name}
                 src={userData.images[0]?.url}
               />
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  borderRadius="full"
+                  variant="ghost"
+                  size="md"
+                  px={0}
+                >
+                  <ChevronDownIcon />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={() => {
+                      dispatch(removeToken());
+                    }}
+                  >
+                    Log Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </Flex>
           </Box>
         </Flex>
