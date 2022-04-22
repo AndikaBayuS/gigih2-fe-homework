@@ -23,7 +23,7 @@ const Playlist = () => {
   return (
     <>
       <Box p={5}>
-        <SimpleGrid columns={{ sm: 2, md: 4, lg: 5, xl: 6 }} spacing={5}>
+        <SimpleGrid columns={{ xs: 2, md: 4, lg: 5, xl: 6 }} spacing={5}>
           {userPlaylist.map((playlist: playlistInterface) => (
             <PlaylistCard
               key={playlist.id}
