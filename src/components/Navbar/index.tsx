@@ -67,7 +67,7 @@ const Navbar = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton data-testid="close-button" />
-          <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">Menu</DrawerHeader>
           <DrawerBody>
             <Link as={RouteLink} to="/" style={{ textDecoration: "none" }}>
               <Box

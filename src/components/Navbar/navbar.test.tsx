@@ -19,7 +19,7 @@ describe("Drawer Test", () => {
     );
     const drawerButton = screen.getByTestId("nav-button");
     userEvent.click(drawerButton);
-    expect(screen.getByText("Basic Drawer")).toBeInTheDocument();
+    expect(screen.getByText("Menu")).toBeInTheDocument();
   });
 
   test("Drawer open and close", async () => {
@@ -34,11 +34,11 @@ describe("Drawer Test", () => {
     );
     const drawerButton = screen.getByTestId("nav-button");
     userEvent.click(drawerButton);
-    expect(screen.getByText("Basic Drawer")).toBeInTheDocument();
+    expect(screen.getByText("Menu")).toBeInTheDocument();
     const closeButton = screen.getByTestId("close-button");
     userEvent.click(closeButton);
     await waitFor(() =>
-      expect(screen.queryByText("Basic Drawer")).not.toBeInTheDocument()
+      expect(screen.queryByText("Menu")).not.toBeInTheDocument()
     );
   });
 });
