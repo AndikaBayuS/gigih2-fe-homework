@@ -41,7 +41,7 @@ git clone https://github.com/AndikaBayuS/gigih2-fe-homework
 Install the dependencies.
 
 ```bash
-npm run install
+npm install
 ```
 Start the project.
 
