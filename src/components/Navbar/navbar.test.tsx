@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { Provider } from "react-redux";
-import Navbar from "./index.";
+import Navbar from "./index";
 import { store } from "store";
 
 describe("Drawer Test", () => {
