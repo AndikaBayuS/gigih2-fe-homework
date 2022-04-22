@@ -19,11 +19,10 @@ const Playlist = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(userPlaylist);
   return (
     <>
       <Box p={5}>
-        <SimpleGrid columns={{ xs: 2, md: 4, lg: 5, xl: 6 }} spacing={5}>
+        <SimpleGrid columns={{ base: 2, md: 4, lg: 5, xl: 6 }} spacing={5}>
           {userPlaylist.map((playlist: playlistInterface) => (
             <PlaylistCard
               key={playlist.id}
